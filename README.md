@@ -51,25 +51,25 @@ memory limit. In the last case, least accessed objects will be removed first.
 ### Installation
 clone en tu gopath o goroot
 ```shell
-git clone https://github.com/mercadolibre/golang-restclient/
+git clone https://github.com/hunghhdev/golang-restclient/
 ```
 
 ### Importing
 ```go
-import "github.com/mercadolibre/golang-restclient/rest"
+import "github.com/hunghhdev/golang-restclient/rest"
 ```
 
 ### Simple GET
 
 ```go
-resp := rest.Get("https://api.restfulsite.com/resource")
+resp := rest.Get("https://localhost:3000/resource")
 ```
 
 ### Simple POST
 
 ```go
 // Using a `string` as body
-resp := rest.Post("https://api.restfulsite.com/resource", "Body")
+resp := rest.Post("https://localhost:3000/resource", "Body")
 ```
 
 ### Simple POST, with Struct Body
@@ -85,7 +85,7 @@ body.Id = 1
 body.Name = "Hernan"
 
 // body will be marshall as JSON
-resp := rest.Post("https://api.restfulsite.com/resource/1", body)
+resp := rest.Post("https://localhost:3000/resource/1", body)
 fmt.Println(resp)
 ```
 
@@ -103,9 +103,9 @@ var f [3]*rest.FutureResponse
 // ForkJoin will send all requests concurrently
 // and will wait until all requests have their correspondent responses
 rest.ForkJoin(func(c *rest.Concurrent) {
-	f[0] = c.Get("https://api.restfulsite.com/resource/1")
-	f[1] = c.Get("https://api.restfulsite.com/resource/2")
-	f[2] = c.Get("https://api.restfulsite.com/resource/3")
+	f[0] = c.Get("https://localhost:3000/resource/1")
+	f[1] = c.Get("https://localhost:3000/resource/2")
+	f[2] = c.Get("https://localhost:3000/resource/3")
 })
 
 for i := range f {
@@ -122,7 +122,7 @@ the go routine calling the Async function.
 Whenever the Response is ready, the **f** function will be called back.
 ```go
 // This won't be blocked.
-rest.AsyncGet("https://api.restfulsite.com/user", func(r *rest.Response) {
+rest.AsyncGet("https://localhost:3000/user", func(r *rest.Response) {
 	if r.StatusCode == http.StatusOK {
 		fmt.Println(r)
 	}
